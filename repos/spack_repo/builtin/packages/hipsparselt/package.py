@@ -202,7 +202,7 @@ class Hipsparselt(ROCmLibrary, CMakePackage, ROCmPackage):
             )
         else:
             ver = None
-        return ver
+        return ver or super().determine_version(lib)
 
     def patch(self):
         purelib = self.spec["python"].package.purelib

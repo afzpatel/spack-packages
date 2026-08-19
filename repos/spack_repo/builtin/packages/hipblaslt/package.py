@@ -332,7 +332,7 @@ class Hipblaslt(ROCmLibrary, CMakePackage):
             )
         else:
             ver = None
-        return ver
+        return ver or super().determine_version(lib)
 
     @property
     def root_cmakelists_dir(self):

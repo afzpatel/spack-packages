@@ -291,7 +291,7 @@ class Rocblas(ROCmLibrary, CMakePackage):
             )
         else:
             ver = None
-        return ver
+        return ver or super().determine_version(lib)
 
     def cmake_args(self):
         args = [
