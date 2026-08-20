@@ -123,7 +123,7 @@ class HipTensor(ROCmLibrary, CMakePackage, ROCmPackage):
             )
         else:
             ver = None
-        return ver
+        return ver or super().determine_version(lib)
 
     def setup_build_environment(self, env: EnvironmentModifications) -> None:
         if self.spec.satisfies("@6.1"):

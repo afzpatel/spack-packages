@@ -156,7 +156,7 @@ class RocmOpencl(ROCmLibrary, CMakePackage):
             )
         else:
             ver = None
-        return ver
+        return ver or super().determine_version(lib)
 
     def cmake_args(self):
         args = ["-DUSE_COMGR_LIBRARY=yes", "-DBUILD_TESTS=ON"]
