@@ -155,8 +155,8 @@ class RocmOpencl(ROCmLibrary, CMakePackage):
                 int(match.group(1)), int(match.group(2)), int(match.group(3))
             )
         else:
-            ver = None
-        return ver or super().determine_version(lib)
+            ver = super().determine_version(lib)
+        return ver
 
     def cmake_args(self):
         args = ["-DUSE_COMGR_LIBRARY=yes", "-DBUILD_TESTS=ON"]
