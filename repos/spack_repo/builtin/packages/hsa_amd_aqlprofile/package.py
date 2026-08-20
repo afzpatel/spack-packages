@@ -66,5 +66,5 @@ class HsaAmdAqlprofile(ROCmLibrary, CMakePackage):
             if major < 7:
                 ver = None
         else:
-            ver = None
-        return ver or super().determine_version(lib)
+            ver = super().determine_version(lib)
+        return ver
