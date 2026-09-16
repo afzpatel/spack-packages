@@ -389,7 +389,11 @@ class Hip(ROCmLibrary, CMakePackage):
     @classmethod
     def determine_version(cls, lib):
         # TheRock 7.13+ encodes the ROCm major and minor versions directly in
-        # the library name, followed by a HIP build number.
+        # the library name, followed by a HIP build number. 7.15 maps to 10.0.
+        match = re.search(r"lib\S*\.so\.7\.15\.\d+(?:-|$)", lib)
+        if match:
+            return "10.0.0"
+
         match = re.search(r"lib\S*\.so\.(7)\.(1[34])\.\d+(?:-|$)", lib)
         if match:
             return "{0}.{1}.0".format(int(match.group(1)), int(match.group(2)))
