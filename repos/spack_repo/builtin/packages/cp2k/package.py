@@ -375,7 +375,6 @@ class Cp2k(MakefilePackage, CMakePackage, CudaPackage, ROCmPackage):
         # CP2K <= 2026.1 requires the legacy libxsmmext interface,
         # which was removed in libxsmm 2.0.
         depends_on("libxsmm@:1", when="@:2026.1")
-        # use pkg-config (support added in libxsmm-1.10) to link to libxsmm
 
     # Several packages provide "opencl" (incl. ICD/loader), e.g., "cuda"
     with when("+opencl"):
@@ -491,6 +490,7 @@ class Cp2k(MakefilePackage, CMakePackage, CudaPackage, ROCmPackage):
         depends_on("sirius@7.4:", when="@2023.2")
         depends_on("sirius@7.5:", when="@2024.1:")
         depends_on("sirius@7.6:+pugixml", when="@2024.2:")
+        depends_on("sirius@:7.6", when="@:2025.1")
         depends_on("sirius@7.7:+pugixml", when="@2025.2:")
         depends_on("sirius+vdwxc", when="+vdwxc")
         depends_on("sirius+nlcglib", when="@2025.2:+nlcg")
@@ -653,6 +653,15 @@ class Cp2k(MakefilePackage, CMakePackage, CudaPackage, ROCmPackage):
     )
 
     def patch(self):
+        # Patch to disable -march=native and -mtune=native to avoid
+        # illegal instructions when cross compiling with spack
+        if self.spec.satisfies("@2026.1:2026.2"):
+            filter_file(
+                r"-march=native;-mtune=native",
+                "",
+                "cmake/CompilerConfiguration.cmake",
+            )
+
         # Patch for an undefined constant due to incompatible changes in ELPA
         if self.spec.satisfies("@9.1:2022.2 +elpa"):
             if self.spec["elpa"].satisfies("@2022.05.001:"):
