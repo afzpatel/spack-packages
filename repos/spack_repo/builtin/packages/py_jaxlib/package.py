@@ -167,7 +167,7 @@ class PyJaxlib(PythonPackage, CudaPackage, ROCmPackage):
         depends_on("python@:3.13", when="@:0.7.0")
         depends_on("python@:3.12", when="@:0.4.33")
         depends_on("python@:3.11", when="@:0.4.16")
-        depends_on("python@:3.12", when="+rocm")
+        depends_on("python@:3.12", when="@:0.10 +rocm")
 
         # jaxlib/setup.py
         depends_on("py-scipy@1.14:", when="@0.10:")
