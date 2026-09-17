@@ -47,7 +47,7 @@ class PyJaxlib(PythonPackage, CudaPackage, ROCmPackage):
     url = "https://github.com/jax-ml/jax/archive/refs/tags/jax-v0.4.34.tar.gz"
 
     license("Apache-2.0")
-    maintainers("adamjstewart", "jonas-eschle")
+    maintainers("adamjstewart", "jonas-eschle", "afzpatel")
 
     version("0.11.1", sha256="ef9826243bcb8eae6d39ac71580bb39154fbeca51b40c2371aab5db1a797dfb4")
     version("0.11.0", sha256="007ef373573ff2fb8a5485679b791581fda328754fd7ae491de3bcdb0fc70d07")
@@ -296,12 +296,12 @@ class PyJaxlib(PythonPackage, CudaPackage, ROCmPackage):
         if spec.satisfies("@0.4.38: +rocm") and not spec["hip"].external:
             env.set("LLVM_PATH", spec["llvm-amdgpu"].prefix)
             transitive_rocm_dependencies = [
-                        "hipblas-common",
-                        "rocprofiler-register",
-                        "hsakmt-roct",
-                        "rocprofiler-sdk",
-                        "rocm-smi-lib",
-                    ]
+                "hipblas-common",
+                "rocprofiler-register",
+                "hsakmt-roct",
+                "rocprofiler-sdk",
+                "rocm-smi-lib",
+            ]
             for pkg_dep in transitive_rocm_dependencies:
                 if self.spec.satisfies(f"^{pkg_dep}"):
                     rocm_dependencies.append(pkg_dep)
