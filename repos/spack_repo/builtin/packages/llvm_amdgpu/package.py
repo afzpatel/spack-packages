@@ -553,7 +553,7 @@ class LlvmAmdgpu(CMakePackage, LlvmDetection, CompilerPackage):
             if match:
                 version_str = match.group(1)
                 return version_str
-            return cls.determine_version_from_path(installed_dir, exe_dir)
+            return cls.determine_version_from_path(installed_dir)
         except ProcessError:
             pass
         except Exception as e:
@@ -561,16 +561,14 @@ class LlvmAmdgpu(CMakePackage, LlvmDetection, CompilerPackage):
         return None
 
     @classmethod
-    def determine_version_from_path(cls, *paths: str) -> Optional[str]:
+    def determine_version_from_path(cls, path):
         """Extract the ROCm version from /opt/rocm-<ver> or /opt/rocm/core-<ver>."""
-        for path in paths:
-            for candidate in (path, os.path.realpath(path)):
-                match = re.search(cls.path_version_regex, candidate)
-                if match:
-                    parts = match.group(1).split(".")
-                    while len(parts) < 3:
-                        parts.append("0")
-                    return ".".join(parts)
+        match = re.search(cls.path_version_regex, path)
+        if match:
+            parts = match.group(1).split(".")
+            while len(parts) < 3:
+                parts.append("0")
+            return ".".join(parts)
         return None
 
     # Make sure that the compiler paths are in the LD_LIBRARY_PATH
