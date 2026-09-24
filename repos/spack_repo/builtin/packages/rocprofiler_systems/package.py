@@ -371,7 +371,7 @@ class RocprofilerSystems(ROCmLibrary, CMakePackage):
         ]:
             depends_on(f"amdsmi@{ver}", when=f"@{ver}")
 
-        depends_on("profiler-hub@10.0.0", when="@10.0.0") 
+        depends_on("profiler-hub@10.0.0", when="@10.0.0")
 
     # Fix GCC 13 build failure caused by a missing include of <array> in dyninst
     patch(

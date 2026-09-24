@@ -334,17 +334,13 @@ class RocmValidationSuite(ROCmLibrary, CMakePackage):
             args.append(
                 self.define(
                     "MXDATAGENERATOR_INC_DIR",
-                    join_path(
-                        self.stage.source_path, "deps", "mxDataGenerator", "lib", "include"
-                    ),
+                    join_path(self.stage.source_path, "deps", "mxDataGenerator", "lib", "include"),
                 )
             )
             args.append(
                 self.define(
                     "TRANSFERBENCH_INC_DIR",
-                    join_path(
-                        self.stage.source_path, "deps", "TransferBench", "src", "header"
-                    ),
+                    join_path(self.stage.source_path, "deps", "TransferBench", "src", "header"),
                 )
             )
 
