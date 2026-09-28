@@ -1,25 +1,49 @@
-diff --git a/cmake/Modules/ConfigBinutils.cmake b/cmake/Modules/ConfigBinutils.cmake
-index 5077e8be..d0d05c59 100644
---- a/cmake/Modules/ConfigBinutils.cmake
-+++ b/cmake/Modules/ConfigBinutils.cmake
-@@ -72,12 +72,17 @@ mark_as_advanced(binutils_CONFIG_FLAGS)
- string(REPLACE " " ";" _binutils_CONFIG_FLAGS "${binutils_CONFIG_FLAGS}")
+--- a/projects/rocprofiler-systems/cmake/Packages.cmake
++++ b/projects/rocprofiler-systems/cmake/Packages.cmake
+@@ -849,20 +849,14 @@ set(TIMEMORY_USE_BFD
+ set(TIMEMORY_USE_LIBUNWIND ON CACHE BOOL "Enable libunwind support in timemory")
+ set(TIMEMORY_USE_VISIBILITY OFF CACHE BOOL "Enable/disable using visibility decorations")
  
- include(ExternalProject)
-+if(TIMEMORY_BINUTILS_DOWNLOAD_URL)
-+    set(_TIMEMORY_BINUTILS_URLS ${TIMEMORY_BINUTILS_DOWNLOAD_URL})
-+else()
-+    set(_TIMEMORY_BINUTILS_URLS
-+        https://ftpmirror.gnu.org/gnu/binutils/binutils-2.46.0.tar.gz
-+        https://mirrors.kernel.org/sourceware/binutils/releases/binutils-2.46.0.tar.gz)
+-if(DEFINED TIMEMORY_BUILD_GOTCHA AND NOT TIMEMORY_BUILD_GOTCHA)
+-    rocprofiler_systems_message(
+-        FATAL_ERROR
+-        "Using an external gotcha is not allowed due to known bug that has not been accepted upstream"
+-    )
+-endif()
+-
+ # timemory feature build settings
+-set(TIMEMORY_BUILD_GOTCHA
+-    ON
+-    CACHE BOOL
+-    "Enable building GOTCHA library from submodule"
+-    FORCE
+-)
++if(NOT DEFINED TIMEMORY_BUILD_GOTCHA)
++    set(TIMEMORY_BUILD_GOTCHA
++        ON
++        CACHE BOOL
++        "Enable building GOTCHA library from submodule"
++    )
 +endif()
- externalproject_add(
-     binutils-external
-     PREFIX ${PROJECT_BINARY_DIR}/external/binutils
--    URL ${TIMEMORY_BINUTILS_DOWNLOAD_URL}
--        https://ftpmirror.gnu.org/gnu/binutils/binutils-2.46.0.tar.gz
--        https://mirrors.kernel.org/sourceware/binutils/releases/binutils-2.46.0.tar.gz
-+    URL ${_TIMEMORY_BINUTILS_URLS}
-     BUILD_IN_SOURCE 1
-     CONFIGURE_COMMAND
-         ${CMAKE_COMMAND} -E env CC=${CMAKE_C_COMPILER}
+ set(TIMEMORY_BUILD_LIBUNWIND
+     ${ROCPROFSYS_BUILD_LIBUNWIND}
+     CACHE BOOL
+@@ -955,11 +949,13 @@ if(_timemory_sanitizer_flag_pos GREATER -1)
+     set(CMAKE_CXX_FLAGS "${_timemory_saved_cxx_flags}")
+ endif()
+ 
+-install(
+-    TARGETS gotcha
+-    DESTINATION ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}
+-    COMPONENT gotcha
+-)
++if(TIMEMORY_BUILD_GOTCHA AND TARGET gotcha)
++    install(
++        TARGETS gotcha
++        DESTINATION ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}
++        COMPONENT gotcha
++    )
++endif()
+ if(ROCPROFSYS_BUILD_LIBUNWIND)
+     install(
+         DIRECTORY ${PROJECT_BINARY_DIR}/external/timemory/external/libunwind/install/lib/

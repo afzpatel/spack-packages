@@ -1,7 +1,8 @@
-diff --git a/cmake/Modules/ConfigBinutils.cmake b/cmake/Modules/ConfigBinutils.cmake
+Submodule projects/rocprofiler-systems/external/timemory contains modified content
+diff --git a/projects/rocprofiler-systems/external/timemory/cmake/Modules/ConfigBinutils.cmake b/projects/rocprofiler-systems/external/timemory/cmake/Modules/ConfigBinutils.cmake
 index 5077e8be..d0d05c59 100644
---- a/cmake/Modules/ConfigBinutils.cmake
-+++ b/cmake/Modules/ConfigBinutils.cmake
+--- a/projects/rocprofiler-systems/external/timemory/cmake/Modules/ConfigBinutils.cmake
++++ b/projects/rocprofiler-systems/external/timemory/cmake/Modules/ConfigBinutils.cmake
 @@ -72,12 +72,17 @@ mark_as_advanced(binutils_CONFIG_FLAGS)
  string(REPLACE " " ";" _binutils_CONFIG_FLAGS "${binutils_CONFIG_FLAGS}")
  
