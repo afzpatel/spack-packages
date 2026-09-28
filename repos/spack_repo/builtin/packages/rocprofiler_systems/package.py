@@ -389,7 +389,7 @@ class RocprofilerSystems(ROCmLibrary, CMakePackage):
     # Allow -DTIMEMORY_BUILD_GOTCHA=OFF with external gotcha (air-gapped builds)
     patch("0001-allow-external-gotcha-10.0.patch", when="@10.0")
     # Single-URL ExternalProject: CMake strips file:// then rejects path+URL lists
-    patch("0002-binutils-single-url-10.0.patch",when="@10.0")
+    patch("0002-binutils-single-url-10.0.patch", when="@10.0")
 
     @property
     def root_cmakelists_dir(self):
