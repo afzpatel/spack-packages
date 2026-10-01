@@ -201,7 +201,7 @@ class RocprofilerSdk(ROCmLibrary, CMakePackage):
     depends_on("glog", when="@7.2:")
     depends_on("yaml-cpp@:0.8.0", when="@10.0")
     depends_on("nlohmann-json", when="@10.0")
-    depends_on("elfio", when="@10.0")
+    depends_on("elfio@3.12:", when="@10.0")
 
     for ver in ["6.2.4", "6.3.0", "6.3.1", "6.3.2", "6.3.3", "6.4.0", "6.4.1", "6.4.2", "6.4.3"]:
         depends_on(f"aqlprofile@{ver}", when=f"@{ver}")
