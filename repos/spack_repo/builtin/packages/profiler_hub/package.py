@@ -51,10 +51,10 @@ class ProfilerHub(ROCmLibrary, CMakePackage):
     )
 
     depends_on("tcl")
-    depends_on("fmt")
-    depends_on("spdlog")
-    depends_on("googletest")
-    depends_on("benchmark")
+    depends_on("fmt@11.2:")
+    depends_on("spdlog@1.15.3:")
+    depends_on("googletest@1.14.0:")
+    depends_on("benchmark@1.8.3:")
 
     depends_on("rocprof-trace-decoder@10.0.0", when="@10.0.0")
 

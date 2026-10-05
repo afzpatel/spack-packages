@@ -241,7 +241,7 @@ class RocprofilerSystems(ROCmLibrary, CMakePackage):
         url="https://ftpmirror.gnu.org/gnu/binutils/binutils-2.46.0.tar.bz2",
         sha256="0f3152632a2a9ce066f20963e9bb40af7cf85b9b6c409ed892fd0676e84ecd12",
         expand=False,
-        placement="binutils-2.46.0.tar.bz2",
+        placement="binutils",
         when="@10.0",
     )
 
@@ -450,7 +450,7 @@ class RocprofilerSystems(ROCmLibrary, CMakePackage):
                     "TIMEMORY_BINUTILS_DOWNLOAD_URL",
                     join_path(
                         self.stage.source_path,
-                        "binutils-2.46.0.tar.bz2",
+                        "binutils",
                         "binutils-2.46.0.tar.bz2",
                     ),
                 )
